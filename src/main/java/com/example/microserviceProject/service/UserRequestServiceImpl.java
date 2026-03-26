@@ -25,7 +25,7 @@ public class UserRequestServiceImpl implements UserRequestService{
                 );
 
         if (exists) {
-            return "Request already sent";
+            return "Request already sent successfully";
         }
         UserRequest getdata = new UserRequest();
         getdata.setUserIdSendRequest(userRequest.getUserIdSendRequest());
