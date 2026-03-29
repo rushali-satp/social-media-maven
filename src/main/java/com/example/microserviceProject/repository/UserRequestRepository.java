@@ -1,6 +1,5 @@
 package com.example.microserviceProject.repository;
 
-import com.example.microserviceProject.entity.CreatePost;
 import com.example.microserviceProject.entity.UserRequest;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UserRequestRepository extends JpaRepository<UserRequest, Integer>{
@@ -17,7 +17,8 @@ public interface UserRequestRepository extends JpaRepository<UserRequest, Intege
     @Query("select a from UserRequest a WHERE a.userIdGetRequest = :userIdGetRequest and a.isRequestSendOrCancel = true")
     List<UserRequest> getdata(@Param("userIdGetRequest") Integer userIdGetRequest);
 
-    boolean existsByUserIdSendRequestAndUserIdGetRequest(Integer userIdSendRequest, Integer userIdGetRequest);
+    Optional<UserRequest> findByUserIdSendRequestAndUserIdGetRequest(
+            Integer userIdSendRequest, Integer userIdGetRequest);
 
     @Transactional
     @Modifying
@@ -43,11 +44,22 @@ public interface UserRequestRepository extends JpaRepository<UserRequest, Intege
 
     @Transactional
     @Modifying
+    @Query(value = "UPDATE user_request ur " +
+            "SET is_get_request_accept_or_reject = false, " +
+            "is_request_send_or_cancel = true " +
+            "WHERE ur.user_id_get_request = :getRequestUserId " +
+            "AND ur.user_id_send_request = :sendRequestUserId",
+            nativeQuery = true)
+    Integer removeFollowers(@Param("sendRequestUserId") Integer sendRequestUserId,
+                                @Param("getRequestUserId") Integer getRequestUserId);
+
+    @Transactional
+    @Modifying
     @Query(value = "UPDATE profile_details " +
             "SET total_following = total_following - 1 " +
             "WHERE user_id = :sendRequestUserId",
             nativeQuery = true)
-    int decreaseFollowing(@Param("sendRequestUserId") Integer sendRequestUserId);
+    void decreaseFollowing(@Param("sendRequestUserId") Integer sendRequestUserId);
 
     @Transactional
     @Modifying
@@ -55,5 +67,7 @@ public interface UserRequestRepository extends JpaRepository<UserRequest, Intege
             "SET total_followers = total_followers - 1 " +
             "WHERE user_id = :getRequestUserId",
             nativeQuery = true)
-    int decreaseFollowers(@Param("getRequestUserId") Integer getRequestUserId);
+    void decreaseFollowers(@Param("getRequestUserId") Integer getRequestUserId);
+
+
 }

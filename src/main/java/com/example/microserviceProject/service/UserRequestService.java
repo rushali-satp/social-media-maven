@@ -10,4 +10,6 @@ public interface UserRequestService {
     List<UserRequest> getUser(UserRequest userRequest);
 
     String removeFromFollowing(BaseForm userRequest);
+
+    String removeFollowers(BaseForm userRequest);
 }

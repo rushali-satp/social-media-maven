@@ -90,4 +90,27 @@ public class UserRequestController {
         }
 
     }
+
+
+    @PostMapping("/removeFollowers")
+    public ResponseEntity<?> removeFollowers(@RequestBody BaseForm userRequest) {
+        try {
+            String user = userRequestService.removeFollowers(userRequest);
+            if(user == null || user.isEmpty()){
+                return buildErrorResponse("No user found",404);
+            }
+
+            Map<String, Object> successResponse = new HashMap<>();
+            successResponse.put("msgcode", 200);
+            successResponse.put("status", "success");
+            successResponse.put("data", user);
+
+            return ResponseEntity.ok(successResponse);
+        }
+        catch (Exception e)
+        {
+            return buildErrorResponse("Something went wrong. Please try again.", 401);
+        }
+
+    }
 }
