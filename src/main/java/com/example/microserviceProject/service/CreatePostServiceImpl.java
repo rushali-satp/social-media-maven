@@ -36,8 +36,9 @@ public class CreatePostServiceImpl implements CreatePostService{
     private ProfileDetailsRepository profileDetailsRepository;
 
     private final String UPLOAD_DIR = "D:/uploadsPostImage/"; // change path if needed
+    private final String MUSIC_DIR = "D:/uploadsPostMusic/";
 
-    public String createPost(String userLoginId, Integer userId, String postText, MultipartFile image, Integer likes
+    public String createPost(String userLoginId, Integer userId, String postText, MultipartFile image,String musicUrl, Integer likes
     ) throws IOException {
 
         CreatePost post = new CreatePost();
@@ -59,6 +60,10 @@ public class CreatePostServiceImpl implements CreatePostService{
             post.setPostImageName(fileName);
             post.setPostImagePath(filePath.toString());
             post.setPostImageSize(String.valueOf(image.getSize())); // bytes
+        }
+
+        if (musicUrl != null && !musicUrl.isEmpty()) {
+            post.setMusicUrl(musicUrl); // store URL
         }
 
         createPostRepository.save(post);

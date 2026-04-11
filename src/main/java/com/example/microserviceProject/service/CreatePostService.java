@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface CreatePostService {
 
-    public String createPost(String userLoginId, Integer userId, String postText, MultipartFile image , Integer likes)throws IOException;
+    public String createPost(String userLoginId, Integer userId, String postText, MultipartFile image ,String musicUrl, Integer likes)throws IOException;
 
 
     String likePost(Integer postId, Integer userId);

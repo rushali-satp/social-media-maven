@@ -43,6 +43,13 @@ public class CreatePost {
     @Column(name = "is_active")
     private boolean isActive;
 
+    @Column(name = "music_url")
+    private String musicUrl;
+
+    @Column(name = "music_name")
+    private String musicName;
+
+
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<PostComments> comments;
     public Integer getPostId() {
@@ -138,5 +145,21 @@ public class CreatePost {
 
     public void setComments(List<PostComments> comments) {
         this.comments = comments;
+    }
+
+    public String getMusicUrl() {
+        return musicUrl;
+    }
+
+    public void setMusicUrl(String musicUrl) {
+        this.musicUrl = musicUrl;
+    }
+
+    public String getMusicName() {
+        return musicName;
+    }
+
+    public void setMusicName(String musicName) {
+        this.musicName = musicName;
     }
 }

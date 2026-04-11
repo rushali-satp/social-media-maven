@@ -21,17 +21,20 @@ public class CreatePostLikeCommentsController {
     @Autowired
     private CreatePostService createPostService;
 
+
+
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> createPost(
             @RequestParam String userLoginId,
             @RequestParam Integer userId,
             @RequestParam(required = false) String postText,
             @RequestParam(required = false) MultipartFile image,
+            @RequestParam(value = "musicUrl", required = false) String musicUrl,
             @RequestParam Integer likes
     ) {
         try {
             String response = createPostService.createPost(
-                    userLoginId, userId, postText, image , likes
+                    userLoginId, userId, postText, image ,musicUrl, likes
             );
             return ResponseEntity.ok(response);
         } catch (Exception e) {
