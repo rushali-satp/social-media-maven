@@ -42,4 +42,26 @@ public interface UserCreationRepository extends JpaRepository<User, Long> {
             "WHERE uu.isUser = 'Y' AND ur.userIdGetRequest = :userId " +
             "ORDER BY uu.userId")
     List<ProfileDetailsDTO> getRequestProfileDetails(@Param("userId") Integer userId);
+
+    @Query(value = "SELECT * FROM um_user uu " +
+            "WHERE uu.is_user = 'Y' " +
+            "AND ( " +
+            "(:userLoginId IS NOT NULL AND uu.user_login_id ILIKE CONCAT('%', :userLoginId, '%')) " +
+            "OR " +
+            "(:userName IS NOT NULL AND uu.user_official_name ILIKE CONCAT('%', :userName, '%')) " +
+            ")",
+            nativeQuery = true)
+    List<User> searchUsers(@Param("userLoginId") String userLoginId,
+                           @Param("userName") String userName);
+
+    @Query("SELECT new com.example.microserviceProject.Dto.ProfileDetailsDTO(" +
+            "u.userId, u.userLoginId, u.userOfficialName, p.bioDetails, p.profileImageName, " +
+            "p.profileImagePath, p.totalPost, p.totalFollowers, p.totalFollowing , ur.isRequestSendOrCancel " +
+            ", ur.isGetRequestAcceptOrReject ) " +
+            "FROM User u " +
+            "LEFT JOIN ProfileDetails p ON p.userId = u.userId " +
+            "left join UserRequest ur ON ur.userIdSendRequest = :userId AND ur.userIdGetRequest = u.userId " +
+            "WHERE u.isUser = 'Y' AND u.userId = :searchUserId " +
+            "ORDER BY u.userId")
+    List<ProfileDetailsDTO> getSearchProfileDetails(@Param("userId") Integer userId,@Param("searchUserId") Integer searchUserId);
 }

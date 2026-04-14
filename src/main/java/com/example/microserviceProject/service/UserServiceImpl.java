@@ -155,4 +155,15 @@ public class UserServiceImpl implements UserService {
         return "Request accepted successfully";
     }
 
+    @Override
+    public List<User> getUserSearchdtls(String userLoginId, String userName) {
+        return userCreationRepository.searchUsers(userLoginId, userName);
+    }
+
+    @Override
+    public List<ProfileDetailsDTO> getSearchProfileDetails(Integer userId, Integer searchUserId) {
+        return userCreationRepository.getSearchProfileDetails(userId , searchUserId);
+
+    }
+
 }

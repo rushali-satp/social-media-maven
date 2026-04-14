@@ -25,4 +25,8 @@ public interface UserService {
     public List<ProfileDetailsDTO> getRequestProfileDetails(Integer userId);
 
     String acceptRequestProfile(BaseForm baseForm);
+
+    List<User> getUserSearchdtls(String userLoginId, String userName);
+
+    public List<ProfileDetailsDTO> getSearchProfileDetails(Integer userId, Integer searchUserId);
 }
