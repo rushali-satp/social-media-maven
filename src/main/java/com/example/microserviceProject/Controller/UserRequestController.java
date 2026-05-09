@@ -52,7 +52,9 @@ public class UserRequestController {
         try {
             List<UserRequest> user = userRequestService.getUser(userRequest);
             if(user == null || user.isEmpty()){
-                return buildErrorResponse("No user found",404);
+                return buildErrorResponse("No user found",404
+
+                );
             }
 
             Map<String, Object> successResponse = new HashMap<>();
