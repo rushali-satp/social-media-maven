@@ -1,5 +1,6 @@
 package com.example.microserviceProject.Controller;
 
+import com.example.microserviceProject.Dto.StatusDTO;
 import com.example.microserviceProject.entity.StatusEntity;
 import com.example.microserviceProject.service.StatusService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +48,7 @@ public class StatusController {
     @GetMapping("/getAllStatus")
     public ResponseEntity<?> getAllStatus() {
         try{
-            List<StatusEntity> list = statusService.getAllStatus();
+            List<StatusDTO> list = statusService.getAllStatus();
             Map<String, Object> successResponse = new HashMap<>();
             successResponse.put("msgcode", 200);
             successResponse.put("status", "success");

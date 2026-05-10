@@ -1,5 +1,6 @@
 package com.example.microserviceProject.service;
 
+import com.example.microserviceProject.Dto.StatusDTO;
 import com.example.microserviceProject.entity.StatusEntity;
 import com.example.microserviceProject.repository.StatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class StatusServiceImpl implements StatusService{
     }
 
     @Override
-    public List<StatusEntity> getAllStatus() {
-        return statusRepository.findAll();
+    public List<StatusDTO> getAllStatus() {
+        return statusRepository.getAllStatus();
     }
 }
