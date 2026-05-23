@@ -15,7 +15,7 @@ public interface StatusRepository extends JpaRepository<StatusEntity, Long> {
 
     @Transactional
     @Query("SELECT new com.example.microserviceProject.Dto.StatusDTO(" +
-            "p.userId, s.statusId, s.statusText, " +
+            "p.userId, s.statusId, s.statusText, s.createdOn , " +
             "p.profileImageName, p.profileImagePath, p.userLoginId) " +
             "FROM StatusEntity s, ProfileDetails p " +
             "WHERE s.userId = p.userId")

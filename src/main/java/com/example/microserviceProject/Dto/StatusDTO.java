@@ -1,5 +1,7 @@
 package com.example.microserviceProject.Dto;
 
+import java.time.LocalDateTime;
+
 public class StatusDTO {
 
     private Integer userId;
@@ -8,6 +10,7 @@ public class StatusDTO {
     private String profileImageName;
     private String profileImagePath;
     private String userLoginId;
+    private LocalDateTime createdOn;
 
     public Integer getUserId() {
         return userId;
@@ -57,10 +60,19 @@ public class StatusDTO {
         this.userLoginId = userLoginId;
     }
 
+    public LocalDateTime getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(LocalDateTime createdOn) {
+        this.createdOn = createdOn;
+    }
+
     public StatusDTO(
             Integer userId,
             Long statusId,
             String statusText,
+            LocalDateTime createdOn,
             String profileImageName,
             String profileImagePath,
             String userLoginId
@@ -68,6 +80,7 @@ public class StatusDTO {
         this.userId = userId;
         this.statusId = statusId;
         this.statusText = statusText;
+        this.createdOn = createdOn ;
         this.profileImageName = profileImageName;
         this.profileImagePath = profileImagePath;
         this.userLoginId = userLoginId;
