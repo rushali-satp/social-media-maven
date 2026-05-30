@@ -25,6 +25,16 @@ public class StatusEntity {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdOn;
 
+    @Column(name = "status_image_name")
+    private String statusImageName;
+
+    @Column(name = "status_image_size")
+    private String statusImageSize;
+
+    @Column(name = "status_image_path")
+    private String statusImagePath;
+
+
     @PrePersist
     protected void onCreate() {
         if (this.createdOn == null) {
